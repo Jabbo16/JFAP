@@ -69,6 +69,7 @@ public class JFAP extends AJFAP{
 	
 	@Override
 	public void simulate() {
+		int nFrames = this.nFrames;
 		while (nFrames > 0) {
 			if (player1.isEmpty() || player2.isEmpty()) {
 				break;
