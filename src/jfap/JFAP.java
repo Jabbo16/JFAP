@@ -17,6 +17,7 @@ public class JFAP extends AJFAP{
 	private List<JFAPUnit> player2 = new ArrayList<JFAPUnit>();
 	private boolean didSomething = false;
 	private int nFrames = 96;
+	
 	public JFAP(Game game) {
 		JFAP.game = game;
 	}
@@ -65,6 +66,23 @@ public class JFAP extends AJFAP{
 			nFrames--;
 		}
 	}
+	
+	@Override
+	public void simulate() {
+		while (nFrames > 0) {
+			if (player1.isEmpty() || player2.isEmpty()) {
+				break;
+			}	    	
+			didSomething = false;
+			isimulate();
+
+			if (!didSomething) {
+				break;
+			}
+			nFrames--;
+		}
+	}
+	
 	final int score(final JFAPUnit fu) {
 		if (fu.health > 0 && fu.maxHealth > 0) {
 			int bunker = 0;
@@ -122,7 +140,6 @@ public class JFAP extends AJFAP{
 
 	@Override
 	public Pair<List<JFAPUnit>, List<JFAPUnit>> getState() {
-		System.out.println("player1:" + player1.size());
 		return new Pair<List<JFAPUnit>, List<JFAPUnit>>(player1,player2);
 	}
 

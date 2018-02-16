@@ -59,20 +59,19 @@ public class EnemyData extends AEnemyData{
 	final void updateFromUnit(final Unit unit) {
 		frameLastSeen = JFAP.game.getFrameCount();
 		lastPosition = unit.getPosition();
-		if (!unit.isDetected())
-		    return;
-		  frameLastDetected = JFAP.game.getFrameCount();
-		  lastHealth = unit.getHitPoints();
-		  lastShields = unit.getShields();
-		  isCompleted = unit.isCompleted();
-		
+		if (!unit.isDetected()) {
+			return;
+		}
+		frameLastDetected = JFAP.game.getFrameCount();
+		lastHealth = unit.getHitPoints();
+		lastShields = unit.getShields();
+		isCompleted = unit.isCompleted();
 	}
 
 	@Override
 	int expectedHealth() {
 		if (lastType.getRace() == Race.Zerg) {
-			return Math.min(((JFAP.game.getFrameCount() - frameLastDetected) * ZERGREGEN) / 
-					256 + lastHealth, lastType.maxHitPoints()); 
+			return Math.min(((JFAP.game.getFrameCount() - frameLastDetected) * ZERGREGEN) /  256 + lastHealth, lastType.maxHitPoints()); 
 		}
 		return lastHealth;
 	}
@@ -80,8 +79,7 @@ public class EnemyData extends AEnemyData{
 	@Override
 	int expectedShields() {
 		if (lastType.getRace() == Race.Protoss) {
-			return Math.min(((JFAP.game.getFrameCount() - frameLastDetected) *
-					PROTOSSSHIELDREGEN) / 256 + lastShields, lastType.maxShields());
+			return Math.min(((JFAP.game.getFrameCount() - frameLastDetected) * PROTOSSSHIELDREGEN) / 256 + lastShields, lastType.maxShields());
 		}
 		return lastShields;
 	}
