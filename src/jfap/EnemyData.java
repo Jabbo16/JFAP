@@ -5,7 +5,6 @@ import bwapi.Position;
 import bwapi.Race;
 import bwapi.Unit;
 import bwapi.UnitType;
-import static ecgberht.Ecgberht.getGame;
 
 public class EnemyData extends AEnemyData{
 	
@@ -36,7 +35,7 @@ public class EnemyData extends AEnemyData{
 	public EnemyData(UnitType ut){
 		u = null;
 		lastType = ut;
-		lastPlayer = getGame().self();
+		lastPlayer = JFAP.game.self();
 		lastPosition = null;
 		lastHealth= ut.maxHitPoints();
 		lastShields = ut.maxShields();
@@ -58,11 +57,11 @@ public class EnemyData extends AEnemyData{
 
 	@Override
 	final void updateFromUnit(final Unit unit) {
-		frameLastSeen = getGame().getFrameCount();
+		frameLastSeen = JFAP.game.getFrameCount();
 		lastPosition = unit.getPosition();
 		if (!unit.isDetected())
 		    return;
-		  frameLastDetected = getGame().getFrameCount();
+		  frameLastDetected = JFAP.game.getFrameCount();
 		  lastHealth = unit.getHitPoints();
 		  lastShields = unit.getShields();
 		  isCompleted = unit.isCompleted();
@@ -72,7 +71,7 @@ public class EnemyData extends AEnemyData{
 	@Override
 	int expectedHealth() {
 		if (lastType.getRace() == Race.Zerg) {
-			return Math.min(((getGame().getFrameCount() - frameLastDetected) * ZERGREGEN) / 
+			return Math.min(((JFAP.game.getFrameCount() - frameLastDetected) * ZERGREGEN) / 
 					256 + lastHealth, lastType.maxHitPoints()); 
 		}
 		return lastHealth;
@@ -81,7 +80,7 @@ public class EnemyData extends AEnemyData{
 	@Override
 	int expectedShields() {
 		if (lastType.getRace() == Race.Protoss) {
-			return Math.min(((getGame().getFrameCount() - frameLastDetected) *
+			return Math.min(((JFAP.game.getFrameCount() - frameLastDetected) *
 					PROTOSSSHIELDREGEN) / 256 + lastShields, lastType.maxShields());
 		}
 		return lastShields;
@@ -89,7 +88,7 @@ public class EnemyData extends AEnemyData{
 
 	@Override
 	boolean isFriendly() {
-		 return lastPlayer.getID() == getGame().self().getID();
+		 return lastPlayer.getID() == JFAP.game.self().getID();
 	}
 
 	@Override

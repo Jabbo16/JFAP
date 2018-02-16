@@ -79,8 +79,6 @@ public class JFAP extends AJFAP{
 	@Override
 	public Pair<Integer, Integer> playerScores() {
 		Pair<Integer, Integer> res = new Pair<>(0,0);
-		System.out.println(player1.size());
-		System.out.println(player2.size());
 		for (final JFAPUnit u : player1) {
 			res.first += score(u);
 		}
@@ -92,7 +90,7 @@ public class JFAP extends AJFAP{
 
 	@Override
 	Pair<Integer, Integer> playerScoresUnits() {
-		Pair<Integer, Integer> res = new Pair<>();
+		Pair<Integer, Integer> res = new Pair<>(0,0);
 		for (final JFAPUnit u : player1) {
 			if (!u.unitType.isBuilding()) {
 				res.first += score(u);
@@ -108,7 +106,7 @@ public class JFAP extends AJFAP{
 
 	@Override
 	Pair<Integer, Integer> playerScoresBuildings() {
-		Pair<Integer, Integer> res = new Pair<>();
+		Pair<Integer, Integer> res = new Pair<>(0,0);
 		for (final JFAPUnit u : player1) {
 			if (u.unitType.isBuilding()) {
 				res.first += score(u);
