@@ -23,7 +23,7 @@ public class JFAP extends AJFAP{
 	}
 
 	@Override
-	void addUnitPlayer1(JFAPUnit fu) {
+	public void addUnitPlayer1(JFAPUnit fu) {
 		player1.add(fu);
 
 	}
@@ -33,14 +33,13 @@ public class JFAP extends AJFAP{
 		if (fu.unitType == UnitType.Protoss_Interceptor) {
 			return;
 		}
-
 		if (fu.groundDamage > 0  || fu.airDamage > 0  || fu.unitType == UnitType.Terran_Medic) {
 			addUnitPlayer1(fu);
 		}
 	}
 
 	@Override
-	void addUnitPlayer2(JFAPUnit fu) {
+	public void addUnitPlayer2(JFAPUnit fu) {
 		player2.add(fu);
 	}
 
@@ -69,6 +68,7 @@ public class JFAP extends AJFAP{
 	
 	@Override
 	public void simulate() {
+		int nFrames = this.nFrames;
 		while (nFrames > 0) {
 			if (player1.isEmpty() || player2.isEmpty()) {
 				break;
@@ -165,7 +165,6 @@ public class JFAP extends AJFAP{
 			return;
 
 		damage -= fu.armor << 8;
-
 		if(damageType == DamageType.Concussive) {
 			if (fu.unitSize == UnitSizeType.Large) {
 				damage = damage / 4;
@@ -202,10 +201,8 @@ public class JFAP extends AJFAP{
 			didSomething = true;
 			return;
 		}
-
 		JFAPUnit closestEnemy = null;
 		int closestDist = 0;
-
 		for (JFAPUnit enemy : enemyUnits) {
 			if (enemy.flying) {
 				if (fu.airDamage > 0) {
@@ -225,14 +222,12 @@ public class JFAP extends AJFAP{
 				}
 			}
 		}
-
 		if (closestEnemy != null && Math.sqrt(closestDist) <= fu.speed && !(fu.x == closestEnemy.x && fu.y == closestEnemy.y)) {
 			fu.x = closestEnemy.x;
 			fu.y = closestEnemy.y;
 			closestDist = 0;
 			didSomething = true;
 		}
-
 		if (closestEnemy != null && closestDist <= (closestEnemy.flying ? fu.groundMaxRange : fu.airMinRange)) {
 			if (closestEnemy.flying) {
 				dealDamage(closestEnemy, fu.airDamage, fu.airDamageType);
@@ -247,21 +242,17 @@ public class JFAP extends AJFAP{
 					}
 				}	  
 			}
-
 			if (closestEnemy.health < 1) {
 				final JFAPUnit temp = closestEnemy;
 				enemyUnits.remove(closestEnemy);
 				unitDeath(temp, enemyUnits);
 			}
-
 			didSomething = true;
 		} else if (closestEnemy != null && Math.sqrt(closestDist) > fu.speed) {
 			final int dx = closestEnemy.x - fu.x;
 			final int dy = closestEnemy.y - fu.y;
-
 			fu.x += (int)(dx * (fu.speed / Math.sqrt(dx * dx + dy * dy)));
 			fu.y += (int)(dy * (fu.speed / Math.sqrt(dx * dx + dy * dy)));
-
 			didSomething = true;
 		}
 	}
@@ -294,7 +285,6 @@ public class JFAP extends AJFAP{
 	boolean suicideSim(JFAPUnit fu, List<JFAPUnit> enemyUnits) {
 		JFAPUnit closestEnemy = null;
 		int closestDist = 0;
-
 		for (JFAPUnit enemy : enemyUnits) {
 			if (enemy.flying) {
 				if (fu.airDamage > 0) {
@@ -344,6 +334,7 @@ public class JFAP extends AJFAP{
 		}
 		return false;
 	}
+	
 	final void simUnit(JFAPUnit unit, List<JFAPUnit> friendly, List<JFAPUnit> enemy) {
 		if(isSuicideUnit(unit.unitType)) {
 			final boolean unitDied = suicideSim(unit, enemy);
@@ -367,7 +358,6 @@ public class JFAP extends AJFAP{
 		if (fu.didHealThisFrame) {
 			fu.didHealThisFrame = false;
 		}
-
 
 		if (fu.unitType.getRace() == Race.Zerg) {
 			if (fu.health < fu.maxHealth) {
