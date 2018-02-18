@@ -15,7 +15,7 @@ FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Ha
     git clone https://github.com/Jabbo16/JFAP.git
     ```
 
-2. Copy the source code in to your Eclipse/IntelliJ Java project.
+2. Copy the source code into your Eclipse/IntelliJ Java project.
 
 3. This is an example code of how to start simulating combats:
 
@@ -25,7 +25,7 @@ FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Ha
     simulator.addUnitPlayer1(new JFAPUnit(myUnit)); // Adds a friendly unit to the simulator
     simulator.addUnitPlayer2(new JFAPUnit(enemyUnit)); // Adds an enemy unit to the simulator
     Pair<Integer, Integer> preSimScores = simulator.playerScores(); // We can get each player scores before the simulation starts
-    int preSimFriendlyUnitCount = simulator.getState().first.size(); // We can get each player unit count introduced to JFAP before the simulation starts
+    int preSimFriendlyUnitCount = simulator.getState().first.size(); // Friendly unit count introduced to JFAP before the simulation starts
     simulator.simulate(50); // Starts simulating the combat, number of frames to simulate is passed by parameters, default is 96 frames
 
     // After the simulation we can get the post battle score and the number of units that died for each player
