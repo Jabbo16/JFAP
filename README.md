@@ -24,7 +24,7 @@ FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Ha
     simulator.clear(); // Before starting the simulations we need to clear the simulator
     simulator.addUnitPlayer1(new JFAPUnit(myUnit)); // Adds a friendly unit to the simulator
     simulator.addUnitPlayer2(new JFAPUnit(enemyUnit)); // Adds an enemy unit to the simulator
-    Pair<Integer, Integer> presim_scores = simulator.playerScores(); // We can get each player scores before the simulation starts
+    Pair<Integer, Integer> presimScores = simulator.playerScores(); // We can get each player scores before the simulation starts
     int preSimFriendlyUnitCount = simulator.getState().first.size(); // We can get each player unit count introduced to JFAP before the simulation starts
     simulator.simulate(50); // Starts simulating the combat, number of frames to simulate is passed by parameters, default is 96 frames
 
@@ -33,6 +33,6 @@ FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Ha
     Pair<Integer, Integer> postsimScores = simulator.playerScores();
     int postsimFriendlyUnitCount = simulator.getState().first.size();
     int myLosses = preSimFriendlyUnitCount - postsimFriendlyUnitCount;
-    int myScoreDiff = postsimScores.first - postsimScores.first;
-    int enemyScoreDiff = postsimScores.second - postsimScores.second;
+    int myScoreDiff = presimScores.first - postsimScores.first;
+    int enemyScoreDiff = presimScores.second - postsimScores.second;
     ```
