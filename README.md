@@ -29,7 +29,7 @@ FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Ha
     simulator.simulate(50); // Starts simulating the combat, number of frames to simulate is passed by parameters, default is 96 frames
 
     // After the simulation we can get the post battle score and the number of units that died for each player
-    // You can use this info to know if the combat will be favorable for you or not
+    // You can use this info to know if the combat will be favourable for you or not
     Pair<Integer, Integer> postSimScores = simulator.playerScores();
     int postSimFriendlyUnitCount = simulator.getState().first.size();
     int myLosses = preSimFriendlyUnitCount - postSimFriendlyUnitCount;
