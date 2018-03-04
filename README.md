@@ -3,7 +3,7 @@
 ## Description
 
 JFAP is a Java port of FAP (Fast APproximation).
-Its designed and test to work with BWMirror 2.5+ and BWAPI 4.1.2.
+Its designed and tested to work with BWMirror 2.5+ and BWAPI 4.1.2.
 
 FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Hannes Bredberg
 * <https://github.com/N00byEdge/Neohuman>
