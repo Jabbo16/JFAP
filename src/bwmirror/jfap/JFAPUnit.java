@@ -95,7 +95,7 @@ public class JFAPUnit {
 				}
 			} else {
 				if (player != null) {
-					groundCooldown = (int)(Math.round(37.0f / (u.getPlayer().getUpgradeLevel(UpgradeType.Carrier_Capacity) == 1 ? 8 : 4)));
+					groundCooldown = (int)(Math.round(37.0f / (player.getUpgradeLevel(UpgradeType.Carrier_Capacity) == 1 ? 8 : 4)));
 				} else {
 					groundCooldown = (int)(Math.round(37.0f / 8));
 				}
@@ -116,7 +116,7 @@ public class JFAPUnit {
 			airMaxRange = groundMaxRange;
 		}
 		else if(unitType == UnitType.Protoss_Reaver) {
-			groundDamage = u.getPlayer().damage(WeaponType.Scarab);
+			groundDamage = player.damage(WeaponType.Scarab);
 		}
 		if (u != null && u.isStimmed()) {
 			groundCooldown /= 2;
