@@ -1,5 +1,7 @@
 package jfap;
 
+import java.util.Objects;
+
 import bwapi.DamageType;
 import bwapi.Game;
 import bwapi.Player;
@@ -10,9 +12,9 @@ import bwapi.UnitType;
 import bwapi.UpgradeType;
 import bwapi.WeaponType;
 
-public class JFAPUnit {
-	
+public class JFAPUnit implements Comparable<JFAPUnit>{
 	int id = 0;
+	Unit unit;
 	int x = 0, y = 0;
 	int health = 0;
 	int maxHealth = 0;
@@ -34,21 +36,19 @@ public class JFAPUnit {
 	int airMaxRange = 0;
 	int airMinRange = 0;
 	DamageType airDamageType = DamageType.Unknown;
-	UnitType unitType = UnitType.Unknown;
+	public UnitType unitType = UnitType.Unknown;
 	Player player = null;
 	boolean isOrganic = false;
 	boolean didHealThisFrame = false;
 	int score = 0;
 	int attackCooldownRemaining = 0;
 	Race race = Race.Unknown;
-	
-	public JFAPUnit() {
-		
-	}
-	
+
 	public JFAPUnit(Unit u) {
+		unit = u;
 		x = u.getX();
 		y = u.getY();
+		id = u.getID();
 		UnitType auxType = u.getType();
 		Player auxPlayer = u.getPlayer();
 		health = u.getHitPoints();
@@ -80,9 +80,10 @@ public class JFAPUnit {
 		doThings(u, JFAP.game);
 	}
 
+	public JFAPUnit() {
+	}
+
 	private void doThings(Unit u, Game game) {
-		int nextId = 0;
-		id = nextId++;
 		if(unitType == UnitType.Protoss_Carrier) {
 			groundDamage = player.damage(UnitType.Protoss_Interceptor.groundWeapon());
 			if (u != null && u.isVisible()) {
@@ -133,5 +134,27 @@ public class JFAPUnit {
 		maxHealth <<= 8;
 		shields <<= 8;
 		maxShields <<= 8;
-	}	 
+	}
+
+	@Override
+    public boolean equals(Object o) {
+
+        if (o == this) return true;
+        if (!(o instanceof JFAPUnit)) {
+            return false;
+        }
+        JFAPUnit jfap = (JFAPUnit) o;
+        return unit.equals(jfap.unit);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(unit);
+    }
+
+	@Override
+	public int compareTo(JFAPUnit arg0) {
+
+		return this.id - arg0.id;
+	}
 }
