@@ -68,3 +68,9 @@ FAP is a combat simulator for Starcraft:Brood War C++ bots originally made by Ha
     int myScoreDiff = preSimScores.first - postSimScores.first;
     int enemyScoreDiff = preSimScores.second - postSimScores.second;
     ```
+    
+## Credits
+
+* Hannes Bredberg for its original work
+
+* Bruce Nielsen for its improvements to FAP
